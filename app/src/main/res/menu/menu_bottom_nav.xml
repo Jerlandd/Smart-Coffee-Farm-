@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_beranda"
+        android:icon="@android:drawable/ic_menu_view"
+        android:title="Beranda" />
+    <item
+        android:id="@+id/nav_kebun"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title="Kebun" />
+    <item
+        android:id="@+id/nav_panen"
+        android:icon="@android:drawable/ic_menu_today"
+        android:title="Panen" />
+    <item
+        android:id="@+id/nav_monitor"
+        android:icon="@android:drawable/ic_menu_slideshow"
+        android:title="Monitor" />
+    <item
+        android:id="@+id/nav_lainnya"
+        android:icon="@android:drawable/ic_menu_more"
+        android:title="Lainnya" />
+</menu>

@@ -1,0 +1,34 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="1080dp"
+    android:height="1920dp"
+    android:viewportWidth="1080"
+    android:viewportHeight="1920">
+
+  <!-- Sky / Morning Sun Gradient -->
+  <path
+      android:fillColor="#FFF3E0"
+      android:pathData="M0,0h1080v1920H0z"/>
+
+  <!-- Distant Mountains -->
+  <path
+      android:fillColor="#BCAAA4"
+      android:pathData="M0,600 Q250,450 540,550 T1080,500 V1920 H0 Z"/>
+
+  <!-- Middle Hills (Misty) -->
+  <path
+      android:fillColor="#8D6E63"
+      android:pathData="M0,800 Q300,650 600,750 T1080,720 V1920 H0 Z"/>
+
+  <!-- Foreground Coffee Plantation Hills (Green & Rich) -->
+  <path
+      android:fillColor="#2E7D32"
+      android:pathData="M0,1100 Q350,900 700,1050 T1080,1000 V1920 H0 Z"/>
+  <path
+      android:fillColor="#1B5E20"
+      android:pathData="M0,1400 Q400,1200 800,1350 T1080,1300 V1920 H0 Z"/>
+
+  <!-- Warm Morning Light Overlay -->
+  <path
+      android:fillColor="#33FFB300"
+      android:pathData="M0,0h1080v1920H0z"/>
+</vector>
