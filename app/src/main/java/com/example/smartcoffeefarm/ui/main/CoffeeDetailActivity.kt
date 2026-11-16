@@ -54,6 +54,19 @@ class CoffeeDetailActivity : AppCompatActivity() {
             if (plot != null) {
                 binding.tvDetailName.text = plot.name
                 binding.tvDetailVariety.text = plot.variety
+                binding.tvDetailArea.text = "${plot.areaHa} ha (${(plot.areaHa * 10000).toInt()} m²)"
+                binding.tvDetailAddress.text = "${plot.address.ifEmpty { "Jl. Perkebunan Kopi No. 1" }}\nKoordinat: ${plot.latitude}, ${plot.longitude}"
+                binding.btnOpenMaps.setOnClickListener {
+                    val gmmIntentUri = Uri.parse("geo:${plot.latitude},${plot.longitude}?q=${plot.latitude},${plot.longitude}(${plot.name})")
+                    val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                    mapIntent.setPackage("com.google.android.apps.maps")
+                    try {
+                        startActivity(mapIntent)
+                    } catch (_: Exception) {
+                        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://maps.google.com/?q=${plot.latitude},${plot.longitude}"))
+                        startActivity(browserIntent)
+                    }
+                }
                 binding.tvDetailDate.text = plot.plantingDate
                 binding.tvDetailMoisture.text = plot.soilMoisture
                 binding.chipDetailStatus.text = plot.healthStatus

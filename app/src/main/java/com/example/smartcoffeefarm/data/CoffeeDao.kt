@@ -34,4 +34,13 @@ interface CoffeeDao {
 
     @Delete
     suspend fun deletePlot(plot: CoffeePlot)
+
+    @Query("SELECT * FROM harvest_records WHERE userId = :userId ORDER BY id DESC")
+    fun getAllHarvestRecordsForUser(userId: Long): Flow<List<HarvestRecord>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertHarvestRecord(record: HarvestRecord)
+
+    @Query("DELETE FROM harvest_records WHERE userId = :userId")
+    suspend fun clearHarvestRecordsForUser(userId: Long)
 }

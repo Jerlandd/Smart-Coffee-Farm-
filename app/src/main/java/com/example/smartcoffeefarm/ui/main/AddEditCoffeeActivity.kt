@@ -96,6 +96,9 @@ class AddEditCoffeeActivity : AppCompatActivity() {
             if (plot != null) {
                 binding.etName.setText(plot.name)
                 binding.actvVariety.setText(plot.variety, false)
+                binding.etArea.setText(plot.areaHa.toString())
+                binding.etAddress.setText(plot.address)
+                binding.etCoordinates.setText("${plot.latitude}, ${plot.longitude}")
                 binding.etDate.setText(plot.plantingDate)
                 binding.etMoisture.setText(plot.soilMoisture)
                 binding.actvStatus.setText(plot.healthStatus, false)
@@ -113,6 +116,9 @@ class AddEditCoffeeActivity : AppCompatActivity() {
     private fun savePlot() {
         val name = binding.etName.text.toString().trim()
         val variety = binding.actvVariety.text.toString().trim()
+        val areaStr = binding.etArea.text.toString().trim()
+        val address = binding.etAddress.text.toString().trim()
+        val coordsStr = binding.etCoordinates.text.toString().trim()
         val date = binding.etDate.text.toString().trim()
         val moisture = binding.etMoisture.text.toString().trim()
         val status = binding.actvStatus.text.toString().trim()
@@ -131,6 +137,11 @@ class AddEditCoffeeActivity : AppCompatActivity() {
         } else {
             binding.tilVariety.error = null
         }
+
+        val areaHa = areaStr.toDoubleOrNull() ?: 1.0
+        val coordsParts = coordsStr.split(",")
+        val lat = coordsParts.getOrNull(0)?.trim()?.toDoubleOrNull() ?: -6.2000
+        val lon = coordsParts.getOrNull(1)?.trim()?.toDoubleOrNull() ?: 106.8166
 
         if (date.isEmpty()) {
             binding.tilDate.error = "Tanggal tanam tidak boleh kosong"
@@ -159,6 +170,10 @@ class AddEditCoffeeActivity : AppCompatActivity() {
                 userId = userId,
                 name = name,
                 variety = variety,
+                areaHa = areaHa,
+                address = address.ifEmpty { "Jl. Perkebunan Kopi No. 1" },
+                latitude = lat,
+                longitude = lon,
                 plantingDate = date,
                 soilMoisture = moisture,
                 healthStatus = status,
@@ -172,6 +187,10 @@ class AddEditCoffeeActivity : AppCompatActivity() {
                 userId = userId,
                 name = name,
                 variety = variety,
+                areaHa = areaHa,
+                address = address.ifEmpty { "Jl. Perkebunan Kopi No. 1" },
+                latitude = lat,
+                longitude = lon,
                 plantingDate = date,
                 soilMoisture = moisture,
                 healthStatus = status,
