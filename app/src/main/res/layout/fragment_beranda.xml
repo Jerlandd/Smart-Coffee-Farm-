@@ -79,7 +79,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="3.250 kg"
+                        android:text="3.250 bmb"
                         android:textColor="@color/text_primary"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -161,6 +161,40 @@
             </androidx.cardview.widget.CardView>
         </LinearLayout>
 
+        <!-- Total Omzet Full-Width Banner Card -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="@color/card_background"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Omzet Tahun Ini"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tvTotalOmzetDashboard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Rp 0"
+                    android:textColor="@color/text_primary"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
         <!-- Panen 12 Bulan Chart Card -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -179,7 +213,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Panen 12 Bulan"
+                    android:text="Panen Bulanan"
                     android:textColor="@color/text_primary"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -346,6 +380,113 @@
                         <TextView android:id="@+id/tvValue12" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="2dp" android:gravity="center" android:textColor="@color/primary_dark_green" android:textSize="8sp" android:textStyle="bold"/>
                         <View android:id="@+id/bar12" android:layout_width="match_parent" android:layout_height="20dp" android:background="@color/primary_dark_green"/>
                         <TextView android:id="@+id/tvMonth12" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:gravity="center" android:text="Des" android:textColor="@color/text_secondary" android:textSize="9sp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Omzet Bulanan Chart Card -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="@color/card_background"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Omzet Bulanan"
+                    android:textColor="@color/text_primary"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <!-- Bar Chart 12 Months Omzet -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal"
+                    android:weightSum="12">
+
+                    <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginHorizontal="1dp" android:orientation="vertical" android:baselineAligned="false">
+                        <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/>
+                        <TextView android:id="@+id/tvValueOmzet1" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="2dp" android:gravity="center" android:textColor="@color/primary_dark_green" android:textSize="7sp" android:textStyle="bold"/>
+                        <View android:id="@+id/barOmzet1" android:layout_width="match_parent" android:layout_height="20dp" android:background="@color/primary_dark_green"/>
+                        <TextView android:id="@+id/tvMonthOmzet1" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:gravity="center" android:text="Jan" android:textColor="@color/text_secondary" android:textSize="9sp"/>
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginHorizontal="1dp" android:orientation="vertical" android:baselineAligned="false">
+                        <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/>
+                        <TextView android:id="@+id/tvValueOmzet2" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="2dp" android:gravity="center" android:textColor="@color/primary_dark_green" android:textSize="7sp" android:textStyle="bold"/>
+                        <View android:id="@+id/barOmzet2" android:layout_width="match_parent" android:layout_height="20dp" android:background="@color/primary_dark_green"/>
+                        <TextView android:id="@+id/tvMonthOmzet2" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:gravity="center" android:text="Feb" android:textColor="@color/text_secondary" android:textSize="9sp"/>
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginHorizontal="1dp" android:orientation="vertical" android:baselineAligned="false">
+                        <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/>
+                        <TextView android:id="@+id/tvValueOmzet3" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="2dp" android:gravity="center" android:textColor="@color/primary_dark_green" android:textSize="7sp" android:textStyle="bold"/>
+                        <View android:id="@+id/barOmzet3" android:layout_width="match_parent" android:layout_height="20dp" android:background="@color/primary_dark_green"/>
+                        <TextView android:id="@+id/tvMonthOmzet3" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:gravity="center" android:text="Mar" android:textColor="@color/text_secondary" android:textSize="9sp"/>
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginHorizontal="1dp" android:orientation="vertical" android:baselineAligned="false">
+                        <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/>
+                        <TextView android:id="@+id/tvValueOmzet4" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="2dp" android:gravity="center" android:textColor="@color/primary_dark_green" android:textSize="7sp" android:textStyle="bold"/>
+                        <View android:id="@+id/barOmzet4" android:layout_width="match_parent" android:layout_height="20dp" android:background="@color/primary_dark_green"/>
+                        <TextView android:id="@+id/tvMonthOmzet4" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:gravity="center" android:text="Apr" android:textColor="@color/text_secondary" android:textSize="9sp"/>
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginHorizontal="1dp" android:orientation="vertical" android:baselineAligned="false">
+                        <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/>
+                        <TextView android:id="@+id/tvValueOmzet5" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="2dp" android:gravity="center" android:textColor="@color/primary_dark_green" android:textSize="7sp" android:textStyle="bold"/>
+                        <View android:id="@+id/barOmzet5" android:layout_width="match_parent" android:layout_height="20dp" android:background="@color/primary_dark_green"/>
+                        <TextView android:id="@+id/tvMonthOmzet5" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:gravity="center" android:text="Mei" android:textColor="@color/text_secondary" android:textSize="9sp"/>
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginHorizontal="1dp" android:orientation="vertical" android:baselineAligned="false">
+                        <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/>
+                        <TextView android:id="@+id/tvValueOmzet6" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="2dp" android:gravity="center" android:textColor="@color/primary_dark_green" android:textSize="7sp" android:textStyle="bold"/>
+                        <View android:id="@+id/barOmzet6" android:layout_width="match_parent" android:layout_height="20dp" android:background="@color/primary_dark_green"/>
+                        <TextView android:id="@+id/tvMonthOmzet6" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:gravity="center" android:text="Jun" android:textColor="@color/text_secondary" android:textSize="9sp"/>
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginHorizontal="1dp" android:orientation="vertical" android:baselineAligned="false">
+                        <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/>
+                        <TextView android:id="@+id/tvValueOmzet7" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="2dp" android:gravity="center" android:textColor="@color/primary_dark_green" android:textSize="7sp" android:textStyle="bold"/>
+                        <View android:id="@+id/barOmzet7" android:layout_width="match_parent" android:layout_height="20dp" android:background="@color/primary_dark_green"/>
+                        <TextView android:id="@+id/tvMonthOmzet7" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:gravity="center" android:text="Jul" android:textColor="@color/text_secondary" android:textSize="9sp"/>
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginHorizontal="1dp" android:orientation="vertical" android:baselineAligned="false">
+                        <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/>
+                        <TextView android:id="@+id/tvValueOmzet8" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="2dp" android:gravity="center" android:textColor="@color/primary_dark_green" android:textSize="7sp" android:textStyle="bold"/>
+                        <View android:id="@+id/barOmzet8" android:layout_width="match_parent" android:layout_height="20dp" android:background="@color/primary_dark_green"/>
+                        <TextView android:id="@+id/tvMonthOmzet8" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:gravity="center" android:text="Ags" android:textColor="@color/text_secondary" android:textSize="9sp"/>
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginHorizontal="1dp" android:orientation="vertical" android:baselineAligned="false">
+                        <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/>
+                        <TextView android:id="@+id/tvValueOmzet9" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="2dp" android:gravity="center" android:textColor="@color/primary_dark_green" android:textSize="7sp" android:textStyle="bold"/>
+                        <View android:id="@+id/barOmzet9" android:layout_width="match_parent" android:layout_height="20dp" android:background="@color/primary_dark_green"/>
+                        <TextView android:id="@+id/tvMonthOmzet9" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:gravity="center" android:text="Sep" android:textColor="@color/text_secondary" android:textSize="9sp"/>
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginHorizontal="1dp" android:orientation="vertical" android:baselineAligned="false">
+                        <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/>
+                        <TextView android:id="@+id/tvValueOmzet10" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="2dp" android:gravity="center" android:textColor="@color/primary_dark_green" android:textSize="7sp" android:textStyle="bold"/>
+                        <View android:id="@+id/barOmzet10" android:layout_width="match_parent" android:layout_height="20dp" android:background="@color/primary_dark_green"/>
+                        <TextView android:id="@+id/tvMonthOmzet10" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:gravity="center" android:text="Okt" android:textColor="@color/text_secondary" android:textSize="9sp"/>
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginHorizontal="1dp" android:orientation="vertical" android:baselineAligned="false">
+                        <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/>
+                        <TextView android:id="@+id/tvValueOmzet11" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="2dp" android:gravity="center" android:textColor="@color/primary_dark_green" android:textSize="7sp" android:textStyle="bold"/>
+                        <View android:id="@+id/barOmzet11" android:layout_width="match_parent" android:layout_height="20dp" android:background="@color/primary_dark_green"/>
+                        <TextView android:id="@+id/tvMonthOmzet11" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:gravity="center" android:text="Nov" android:textColor="@color/text_secondary" android:textSize="9sp"/>
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginHorizontal="1dp" android:orientation="vertical" android:baselineAligned="false">
+                        <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/>
+                        <TextView android:id="@+id/tvValueOmzet12" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="2dp" android:gravity="center" android:textColor="@color/primary_dark_green" android:textSize="7sp" android:textStyle="bold"/>
+                        <View android:id="@+id/barOmzet12" android:layout_width="match_parent" android:layout_height="20dp" android:background="@color/primary_dark_green"/>
+                        <TextView android:id="@+id/tvMonthOmzet12" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:gravity="center" android:text="Des" android:textColor="@color/text_secondary" android:textSize="9sp"/>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

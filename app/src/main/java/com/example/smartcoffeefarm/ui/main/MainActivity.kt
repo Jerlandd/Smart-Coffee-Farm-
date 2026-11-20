@@ -196,7 +196,13 @@ class MainActivity : AppCompatActivity() {
             records?.sumOf { it.quantityKg } ?: 0
         }
 
-        tvPanenBulanIni?.text = "${NumberFormat.getInstance(Locale.forLanguageTag("id")).format(currentMonthTotal)} kg"
+        tvPanenBulanIni?.text = "${NumberFormat.getInstance(Locale.forLanguageTag("id")).format(currentMonthTotal)} bmb"
+
+        val tvTotalOmzet = view.findViewById<TextView>(R.id.tvTotalOmzetDashboard)
+        val currentYearStr = Calendar.getInstance().get(Calendar.YEAR).toString()
+        val yearlyHarvests = records?.filter { it.date.contains(currentYearStr) } ?: emptyList()
+        val totalOmzetRp = yearlyHarvests.sumOf { if (it.sellingPriceRp > 0) it.sellingPriceRp else it.quantityKg * 35000.0 }
+        tvTotalOmzet?.text = formatRupiah(totalOmzetRp)
 
         val bars = listOf(
             view.findViewById<View>(R.id.bar1),
@@ -256,25 +262,84 @@ class MainActivity : AppCompatActivity() {
             monthlyTotals[11] = records.sumOf { it.quantityKg }
         }
 
-        val maxQty = maxOf(1, monthlyTotals.maxOrNull() ?: 1)
+        val maxQty = 10000.0f
         val density = resources.displayMetrics.density
 
         for (i in 0 until 12) {
             val qty = monthlyTotals[i]
             if (qty > 0) {
-                valueLabels[i]?.text = if (qty >= 1000) "${qty / 1000}k" else qty.toString()
+                valueLabels[i]?.text = qty.toString()
             } else {
                 valueLabels[i]?.text = ""
             }
 
             val heightDp = if (qty > 0) {
-                ((qty.toFloat() / maxQty) * 90f).coerceIn(12f, 100f)
+                ((qty / maxQty) * 90f).coerceIn(8f, 95f)
             } else {
-                12f
+                8f
             }
             val heightPx = (heightDp * density).toInt()
             bars[i]?.layoutParams?.height = heightPx
             bars[i]?.requestLayout()
+        }
+
+        val omzetBars = listOf(
+            view.findViewById<View>(R.id.barOmzet1), view.findViewById<View>(R.id.barOmzet2),
+            view.findViewById<View>(R.id.barOmzet3), view.findViewById<View>(R.id.barOmzet4),
+            view.findViewById<View>(R.id.barOmzet5), view.findViewById<View>(R.id.barOmzet6),
+            view.findViewById<View>(R.id.barOmzet7), view.findViewById<View>(R.id.barOmzet8),
+            view.findViewById<View>(R.id.barOmzet9), view.findViewById<View>(R.id.barOmzet10),
+            view.findViewById<View>(R.id.barOmzet11), view.findViewById<View>(R.id.barOmzet12)
+        )
+        val omzetMonthLabels = listOf(
+            view.findViewById<TextView>(R.id.tvMonthOmzet1), view.findViewById<TextView>(R.id.tvMonthOmzet2),
+            view.findViewById<TextView>(R.id.tvMonthOmzet3), view.findViewById<TextView>(R.id.tvMonthOmzet4),
+            view.findViewById<TextView>(R.id.tvMonthOmzet5), view.findViewById<TextView>(R.id.tvMonthOmzet6),
+            view.findViewById<TextView>(R.id.tvMonthOmzet7), view.findViewById<TextView>(R.id.tvMonthOmzet8),
+            view.findViewById<TextView>(R.id.tvMonthOmzet9), view.findViewById<TextView>(R.id.tvMonthOmzet10),
+            view.findViewById<TextView>(R.id.tvMonthOmzet11), view.findViewById<TextView>(R.id.tvMonthOmzet12)
+        )
+        val omzetValueLabels = listOf(
+            view.findViewById<TextView>(R.id.tvValueOmzet1), view.findViewById<TextView>(R.id.tvValueOmzet2),
+            view.findViewById<TextView>(R.id.tvValueOmzet3), view.findViewById<TextView>(R.id.tvValueOmzet4),
+            view.findViewById<TextView>(R.id.tvValueOmzet5), view.findViewById<TextView>(R.id.tvValueOmzet6),
+            view.findViewById<TextView>(R.id.tvValueOmzet7), view.findViewById<TextView>(R.id.tvValueOmzet8),
+            view.findViewById<TextView>(R.id.tvValueOmzet9), view.findViewById<TextView>(R.id.tvValueOmzet10),
+            view.findViewById<TextView>(R.id.tvValueOmzet11), view.findViewById<TextView>(R.id.tvValueOmzet12)
+        )
+
+        val monthlyOmzet = DoubleArray(12)
+        for (i in 0 until 12) {
+            val monthOffsetIdx = (currentMonthIdx - (11 - i) + 1200) % 12
+            val mName = monthNames[monthOffsetIdx]
+            omzetMonthLabels[i]?.text = shortMonthNames[monthOffsetIdx]
+            val monthHarvests = yearlyHarvests.filter { it.date.contains(mName, ignoreCase = true) }
+            val omzetForMonth = monthHarvests.sumOf { if (it.sellingPriceRp > 0) it.sellingPriceRp else it.quantityKg * 35000.0 }
+            monthlyOmzet[i] = omzetForMonth
+        }
+
+        if (monthlyOmzet.all { it == 0.0 } && !yearlyHarvests.isNullOrEmpty()) {
+            monthlyOmzet[11] = yearlyHarvests.sumOf { if (it.sellingPriceRp > 0) it.sellingPriceRp else it.quantityKg * 35000.0 }
+        }
+
+        val maxOmzet = 1000000000.0f
+
+        for (i in 0 until 12) {
+            val omzetVal = monthlyOmzet[i]
+            if (omzetVal > 0) {
+                omzetValueLabels[i]?.text = if (omzetVal >= 1000000) "${(omzetVal / 1000000.0).toInt()}jt" else "${(omzetVal / 1000.0).toInt()}rb"
+            } else {
+                omzetValueLabels[i]?.text = ""
+            }
+
+            val heightDp = if (omzetVal > 0) {
+                ((omzetVal.toFloat() / maxOmzet) * 90f).coerceIn(8f, 95f)
+            } else {
+                8f
+            }
+
+            omzetBars[i]?.layoutParams?.height = (heightDp * density).toInt()
+            omzetBars[i]?.requestLayout()
         }
     }
 
@@ -322,6 +387,7 @@ class MainActivity : AppCompatActivity() {
         val etBlok = view.findViewById<EditText>(R.id.etBlok)
         val etJumlah = view.findViewById<EditText>(R.id.etJumlah)
         val etKualitas = view.findViewById<EditText>(R.id.etKualitas)
+        val etHargaJual = view.findViewById<EditText>(R.id.etHargaJual)
         val btnSimpan = view.findViewById<View>(R.id.btnSimpanPanen)
         val btnReset = view.findViewById<View>(R.id.btnResetRiwayat)
         containerRiwayat = view.findViewById(R.id.containerRiwayat)
@@ -354,6 +420,7 @@ class MainActivity : AppCompatActivity() {
             val blok = etBlok?.text?.toString()?.trim().orEmpty()
             val jumlahStr = etJumlah?.text?.toString()?.trim().orEmpty()
             val kualitas = etKualitas?.text?.toString()?.trim().orEmpty()
+            val hargaJualStr = etHargaJual?.text?.toString()?.trim().orEmpty()
 
             if (blok.isEmpty()) {
                 etBlok?.error = "Nama blok tidak boleh kosong"
@@ -366,12 +433,15 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            val hargaJual = hargaJualStr.toDoubleOrNull() ?: 0.0
+
             val record = HarvestRecord(
                 userId = userId,
                 date = tanggal.ifEmpty { dateFormat.format(java.util.Date()) },
                 blockName = blok,
                 quantityKg = jumlahKg,
-                quality = kualitas.ifEmpty { "Grade A" }
+                quality = kualitas.ifEmpty { "Grade A" },
+                sellingPriceRp = hargaJual
             )
 
             viewModel.insertHarvestRecord(record)
@@ -380,6 +450,7 @@ class MainActivity : AppCompatActivity() {
             etBlok?.setText("")
             etJumlah?.setText("0")
             etKualitas?.setText("")
+            etHargaJual?.setText("")
         }
     }
 
@@ -415,7 +486,8 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 val tvQty = TextView(this).apply {
-                    text = "${record.quantityKg} kg"
+                    val priceText = if (record.sellingPriceRp > 0) " · ${formatRupiah(record.sellingPriceRp)}" else ""
+                    text = "${record.quantityKg} bmb$priceText"
                     setTextColor(resources.getColor(R.color.text_primary, theme))
                     textSize = 14f
                     typeface = Typeface.DEFAULT_BOLD
@@ -517,6 +589,13 @@ class MainActivity : AppCompatActivity() {
             val totalYieldKg = viewModel.harvestRecords.value?.sumOf { it.quantityKg.toDouble() } ?: 0.0
             val perKg = if (totalYieldKg > 0) totalCost / totalYieldKg else 0.0
             tvCostPerKg?.text = formatRupiah(perKg)
+
+            val tvLabaBersih = view.findViewById<TextView>(R.id.tvLabaBersihBiaya)
+            val currentYearStr = Calendar.getInstance().get(Calendar.YEAR).toString()
+            val yearlyHarvests = viewModel.harvestRecords.value?.filter { it.date.contains(currentYearStr) } ?: emptyList()
+            val totalOmzetRp = yearlyHarvests.sumOf { if (it.sellingPriceRp > 0) it.sellingPriceRp else it.quantityKg * 35000.0 }
+            val labaBersihRp = totalOmzetRp - totalCost
+            tvLabaBersih?.text = formatRupiah(labaBersihRp)
 
             containerPerKategori?.removeAllViews()
             val categoryMap = records?.groupBy { it.category } ?: emptyMap()
@@ -780,11 +859,11 @@ class MainActivity : AppCompatActivity() {
             val totalBiayaRp = yearCosts.sumOf { it.amountRp }
 
             val hargaJualPerKg = 35000.0
-            val totalPendapatan = totalPanenKg * hargaJualPerKg
+            val totalPendapatan = yearHarvests.sumOf { if (it.sellingPriceRp > 0) it.sellingPriceRp else it.quantityKg * 35000.0 }
             val bersihRp = totalPendapatan - totalBiayaRp
             val biayaHasilRatio = if (totalPendapatan > 0) ((totalBiayaRp / totalPendapatan) * 100).toInt() else 0
 
-            tvTotalPanen?.text = "${NumberFormat.getInstance(Locale.forLanguageTag("id")).format(totalPanenKg)} kg"
+            tvTotalPanen?.text = "${NumberFormat.getInstance(Locale.forLanguageTag("id")).format(totalPanenKg)} bmb"
             tvTotalBiaya?.text = formatRupiahJt(totalBiayaRp)
             tvBersih?.text = formatRupiahJt(bersihRp)
             tvBiayaHasil?.text = "$biayaHasilRatio%"
@@ -825,10 +904,11 @@ class MainActivity : AppCompatActivity() {
                 val mName = monthNames[i]
                 monthLabels[i]?.text = shortMonthNames[i]
 
-                val panenForMonth = yearHarvests.filter { it.date.contains(mName, ignoreCase = true) }.sumOf { it.quantityKg }
+                val monthHarvests = yearHarvests.filter { it.date.contains(mName, ignoreCase = true) }
+                val pendForMonth = monthHarvests.sumOf { if (it.sellingPriceRp > 0) it.sellingPriceRp else it.quantityKg * 35000.0 }
                 val biayaForMonth = yearCosts.filter { it.date.contains(mName, ignoreCase = true) }.sumOf { it.amountRp }
 
-                monthlyPendapatan[i] = panenForMonth * 35000.0
+                monthlyPendapatan[i] = pendForMonth
                 monthlyBiaya[i] = biayaForMonth
             }
 
@@ -876,32 +956,59 @@ class MainActivity : AppCompatActivity() {
 
     private fun exportReport(format: String) {
         try {
-            val totalPanenKg = viewModel.harvestRecords.value?.sumOf { it.quantityKg } ?: 0
-            val totalBiayaRp = viewModel.costRecords.value?.sumOf { it.amountRp } ?: 0.0
-            val hargaJualPerKg = customMarketPricePerKg * 4.0
-            val totalPendapatan = totalPanenKg * hargaJualPerKg
+            val yearStr = selectedReportYear.toString()
+            val yearHarvests = viewModel.harvestRecords.value?.filter { it.date.contains(yearStr) } ?: emptyList()
+            val yearCosts = viewModel.costRecords.value?.filter { it.date.contains(yearStr) } ?: emptyList()
+
+            val totalPanenKg = yearHarvests.sumOf { it.quantityKg }
+            val totalBiayaRp = yearCosts.sumOf { it.amountRp }
+            val totalPendapatan = yearHarvests.sumOf { if (it.sellingPriceRp > 0) it.sellingPriceRp else it.quantityKg * 35000.0 }
             val bersihRp = totalPendapatan - totalBiayaRp
 
+            val monthNames = listOf("Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember")
+
             val reportContent = buildString {
-                append("=== LAPORAN KEBUNKU (SMART COFFEE FARM) ===\n")
-                append("Tanggal Ekspor: ${SimpleDateFormat("dd MMMM yyyy HH:mm", Locale("id", "ID")).format(Date())}\n\n")
-                append("RINGKASAN KEUANGAN & PRODUKSI:\n")
-                append("- Total Panen: $totalPanenKg kg\n")
-                append("- Total Biaya: ${formatRupiah(totalBiayaRp)}\n")
-                append("- Estimasi Pendapatan: ${formatRupiah(totalPendapatan)}\n")
-                append("- Laba Bersih (Profit): ${formatRupiah(bersihRp)}\n\n")
-                append("RIWAYAT PANEN:\n")
-                viewModel.harvestRecords.value?.forEach {
-                    append("- ${it.date} | Blok: ${it.blockName} | Jumlah: ${it.quantityKg} kg | Kualitas: ${it.quality}\n")
-                } ?: append("Tidak ada riwayat panen.\n")
-                append("\nRIWAYAT BIAYA PRODUKSI:\n")
-                viewModel.costRecords.value?.forEach {
-                    append("- ${it.date} | Kategori: ${it.category} | ${it.title} | Biaya: ${formatRupiah(it.amountRp)}\n")
-                } ?: append("Tidak ada riwayat biaya.\n")
+                if (format == "EXCEL") {
+                    append("Bulan;Total Panen (bmb);Total Biaya (Rp);Estimasi Pendapatan (Rp);Laba Bersih (Rp)\n")
+                    for (mName in monthNames) {
+                        val monthRecords = yearHarvests.filter { it.date.contains(mName, ignoreCase = true) }
+                        val pKg = monthRecords.sumOf { it.quantityKg }
+                        val bRp = yearCosts.filter { it.date.contains(mName, ignoreCase = true) }.sumOf { it.amountRp }
+                        val pendRp = monthRecords.sumOf { if (it.sellingPriceRp > 0) it.sellingPriceRp else it.quantityKg * 35000.0 }
+                        val lbRp = pendRp - bRp
+                        append("$mName;$pKg;$bRp;$pendRp;$lbRp\n")
+                    }
+                    append("\nTOTAL TAHUN $selectedReportYear;;;;\n")
+                    append("Total Panen:;$totalPanenKg bmb\n")
+                    append("Total Biaya:;${formatRupiah(totalBiayaRp)}\n")
+                    append("Total Pendapatan:;${formatRupiah(totalPendapatan)}\n")
+                    append("Laba Bersih:;${formatRupiah(bersihRp)}\n")
+                } else {
+                    append("========================================\n")
+                    append("  LAPORAN BULANAN KEBUNKU ($selectedReportYear)\n")
+                    append("========================================\n")
+                    append("Tanggal Ekspor: ${SimpleDateFormat("dd MMMM yyyy HH:mm", Locale("id", "ID")).format(Date())}\n\n")
+                    append("RINGKASAN TAHUN $selectedReportYear:\n")
+                    append("- Total Panen: $totalPanenKg bmb\n")
+                    append("- Total Biaya: ${formatRupiah(totalBiayaRp)}\n")
+                    append("- Estimasi Pendapatan: ${formatRupiah(totalPendapatan)}\n")
+                    append("- Laba Bersih (Profit): ${formatRupiah(bersihRp)}\n\n")
+                    append("RINCIAN BULANAN (JAN - DES):\n")
+                    for (mName in monthNames) {
+                        val monthRecords = yearHarvests.filter { it.date.contains(mName, ignoreCase = true) }
+                        val pKg = monthRecords.sumOf { it.quantityKg }
+                        val bRp = yearCosts.filter { it.date.contains(mName, ignoreCase = true) }.sumOf { it.amountRp }
+                        val pendRp = monthRecords.sumOf { if (it.sellingPriceRp > 0) it.sellingPriceRp else it.quantityKg * 35000.0 }
+                        append("• $mName:\n")
+                        append("  - Panen: $pKg bmb\n")
+                        append("  - Biaya: ${formatRupiah(bRp)}\n")
+                        append("  - Pendapatan: ${formatRupiah(pendRp)}\n")
+                    }
+                }
             }
 
             val ext = if (format == "EXCEL") "csv" else "txt"
-            val fileName = "Laporan_KebunKu_${System.currentTimeMillis()}.$ext"
+            val fileName = "Laporan_Bulanan_${selectedReportYear}_${System.currentTimeMillis()}.$ext"
 
             val file = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 val resolver = contentResolver
@@ -927,9 +1034,8 @@ class MainActivity : AppCompatActivity() {
                 targetFile
             }
 
-            Toast.makeText(this, "Berhasil didownload ke folder Download:\n$fileName", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Laporan Bulanan $selectedReportYear berhasil didownload ke folder Download:\n$fileName", Toast.LENGTH_LONG).show()
 
-            // Open file intent
             val uri = FileProvider.getUriForFile(this, "${packageName}.fileprovider", file)
             val intent = Intent(Intent.ACTION_VIEW).apply {
                 setDataAndType(uri, if (format == "EXCEL") "text/csv" else "text/plain")
