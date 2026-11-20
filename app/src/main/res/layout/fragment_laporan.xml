@@ -29,9 +29,12 @@
                 app:boxCornerRadiusTopStart="8dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPeriodeLaporan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Periode: Jan – Nov 2028"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:text="Periode: Tahun 2026"
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -65,6 +68,7 @@
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tvLaporanTotalPanen"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
@@ -98,6 +102,7 @@
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tvLaporanTotalBiaya"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
@@ -138,6 +143,7 @@
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tvLaporanBersih"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
@@ -171,6 +177,7 @@
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tvLaporanBiayaHasil"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
@@ -206,70 +213,229 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
-                    <!-- Bar Chart Mock -->
+                    <!-- Legend -->
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:layout_marginTop="16dp"
-                        android:gravity="bottom"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:background="@color/primary_dark_green" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginEnd="16dp"
+                            android:text="Hasil Panen (Rp)"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="11sp" />
+
+                        <View
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:background="#E65100" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:text="Total Biaya (Rp)"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+
+                    <!-- Bar Chart 12 Months Grouped -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_marginTop="12dp"
                         android:orientation="horizontal"
-                        android:weightSum="8">
+                        android:weightSum="12">
 
-                        <View
+                        <LinearLayout
                             android:layout_width="0dp"
-                            android:layout_height="40dp"
-                            android:layout_marginHorizontal="3dp"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:background="@color/primary_dark_green" />
+                            android:layout_marginHorizontal="1dp"
+                            android:orientation="vertical"
+                            android:baselineAligned="false">
+                            <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/>
+                            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="bottom" android:weightSum="2">
+                                <View android:id="@+id/barPanen1" android:layout_width="0dp" android:layout_height="20dp" android:layout_weight="1" android:layout_marginEnd="1dp" android:background="@color/primary_dark_green"/>
+                                <View android:id="@+id/barBiaya1" android:layout_width="0dp" android:layout_height="15dp" android:layout_weight="1" android:layout_marginStart="1dp" android:background="#E65100"/>
+                            </LinearLayout>
+                            <TextView android:id="@+id/tvLaporanMonth1" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:gravity="center" android:text="Jan" android:textColor="@color/text_secondary" android:textSize="9sp"/>
+                        </LinearLayout>
 
-                        <View
+                        <LinearLayout
                             android:layout_width="0dp"
-                            android:layout_height="60dp"
-                            android:layout_marginHorizontal="3dp"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:background="@color/primary_dark_green" />
+                            android:layout_marginHorizontal="1dp"
+                            android:orientation="vertical"
+                            android:baselineAligned="false">
+                            <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/>
+                            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="bottom" android:weightSum="2">
+                                <View android:id="@+id/barPanen2" android:layout_width="0dp" android:layout_height="20dp" android:layout_weight="1" android:layout_marginEnd="1dp" android:background="@color/primary_dark_green"/>
+                                <View android:id="@+id/barBiaya2" android:layout_width="0dp" android:layout_height="15dp" android:layout_weight="1" android:layout_marginStart="1dp" android:background="#E65100"/>
+                            </LinearLayout>
+                            <TextView android:id="@+id/tvLaporanMonth2" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:gravity="center" android:text="Feb" android:textColor="@color/text_secondary" android:textSize="9sp"/>
+                        </LinearLayout>
 
-                        <View
+                        <LinearLayout
                             android:layout_width="0dp"
-                            android:layout_height="50dp"
-                            android:layout_marginHorizontal="3dp"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:background="@color/primary_dark_green" />
+                            android:layout_marginHorizontal="1dp"
+                            android:orientation="vertical"
+                            android:baselineAligned="false">
+                            <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/>
+                            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="bottom" android:weightSum="2">
+                                <View android:id="@+id/barPanen3" android:layout_width="0dp" android:layout_height="20dp" android:layout_weight="1" android:layout_marginEnd="1dp" android:background="@color/primary_dark_green"/>
+                                <View android:id="@+id/barBiaya3" android:layout_width="0dp" android:layout_height="15dp" android:layout_weight="1" android:layout_marginStart="1dp" android:background="#E65100"/>
+                            </LinearLayout>
+                            <TextView android:id="@+id/tvLaporanMonth3" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:gravity="center" android:text="Mar" android:textColor="@color/text_secondary" android:textSize="9sp"/>
+                        </LinearLayout>
 
-                        <View
+                        <LinearLayout
                             android:layout_width="0dp"
-                            android:layout_height="80dp"
-                            android:layout_marginHorizontal="3dp"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:background="@color/primary_dark_green" />
+                            android:layout_marginHorizontal="1dp"
+                            android:orientation="vertical"
+                            android:baselineAligned="false">
+                            <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/>
+                            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="bottom" android:weightSum="2">
+                                <View android:id="@+id/barPanen4" android:layout_width="0dp" android:layout_height="20dp" android:layout_weight="1" android:layout_marginEnd="1dp" android:background="@color/primary_dark_green"/>
+                                <View android:id="@+id/barBiaya4" android:layout_width="0dp" android:layout_height="15dp" android:layout_weight="1" android:layout_marginStart="1dp" android:background="#E65100"/>
+                            </LinearLayout>
+                            <TextView android:id="@+id/tvLaporanMonth4" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:gravity="center" android:text="Apr" android:textColor="@color/text_secondary" android:textSize="9sp"/>
+                        </LinearLayout>
 
-                        <View
+                        <LinearLayout
                             android:layout_width="0dp"
-                            android:layout_height="70dp"
-                            android:layout_marginHorizontal="3dp"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:background="@color/primary_dark_green" />
+                            android:layout_marginHorizontal="1dp"
+                            android:orientation="vertical"
+                            android:baselineAligned="false">
+                            <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/>
+                            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="bottom" android:weightSum="2">
+                                <View android:id="@+id/barPanen5" android:layout_width="0dp" android:layout_height="20dp" android:layout_weight="1" android:layout_marginEnd="1dp" android:background="@color/primary_dark_green"/>
+                                <View android:id="@+id/barBiaya5" android:layout_width="0dp" android:layout_height="15dp" android:layout_weight="1" android:layout_marginStart="1dp" android:background="#E65100"/>
+                            </LinearLayout>
+                            <TextView android:id="@+id/tvLaporanMonth5" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:gravity="center" android:text="Mei" android:textColor="@color/text_secondary" android:textSize="9sp"/>
+                        </LinearLayout>
 
-                        <View
+                        <LinearLayout
                             android:layout_width="0dp"
-                            android:layout_height="95dp"
-                            android:layout_marginHorizontal="3dp"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:background="@color/primary_dark_green" />
+                            android:layout_marginHorizontal="1dp"
+                            android:orientation="vertical"
+                            android:baselineAligned="false">
+                            <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/>
+                            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="bottom" android:weightSum="2">
+                                <View android:id="@+id/barPanen6" android:layout_width="0dp" android:layout_height="20dp" android:layout_weight="1" android:layout_marginEnd="1dp" android:background="@color/primary_dark_green"/>
+                                <View android:id="@+id/barBiaya6" android:layout_width="0dp" android:layout_height="15dp" android:layout_weight="1" android:layout_marginStart="1dp" android:background="#E65100"/>
+                            </LinearLayout>
+                            <TextView android:id="@+id/tvLaporanMonth6" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:gravity="center" android:text="Jun" android:textColor="@color/text_secondary" android:textSize="9sp"/>
+                        </LinearLayout>
 
-                        <View
+                        <LinearLayout
                             android:layout_width="0dp"
-                            android:layout_height="85dp"
-                            android:layout_marginHorizontal="3dp"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:background="@color/primary_dark_green" />
+                            android:layout_marginHorizontal="1dp"
+                            android:orientation="vertical"
+                            android:baselineAligned="false">
+                            <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/>
+                            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="bottom" android:weightSum="2">
+                                <View android:id="@+id/barPanen7" android:layout_width="0dp" android:layout_height="20dp" android:layout_weight="1" android:layout_marginEnd="1dp" android:background="@color/primary_dark_green"/>
+                                <View android:id="@+id/barBiaya7" android:layout_width="0dp" android:layout_height="15dp" android:layout_weight="1" android:layout_marginStart="1dp" android:background="#E65100"/>
+                            </LinearLayout>
+                            <TextView android:id="@+id/tvLaporanMonth7" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:gravity="center" android:text="Jul" android:textColor="@color/text_secondary" android:textSize="9sp"/>
+                        </LinearLayout>
 
-                        <View
+                        <LinearLayout
                             android:layout_width="0dp"
-                            android:layout_height="75dp"
-                            android:layout_marginHorizontal="3dp"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:background="@color/primary_dark_green" />
+                            android:layout_marginHorizontal="1dp"
+                            android:orientation="vertical"
+                            android:baselineAligned="false">
+                            <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/>
+                            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="bottom" android:weightSum="2">
+                                <View android:id="@+id/barPanen8" android:layout_width="0dp" android:layout_height="20dp" android:layout_weight="1" android:layout_marginEnd="1dp" android:background="@color/primary_dark_green"/>
+                                <View android:id="@+id/barBiaya8" android:layout_width="0dp" android:layout_height="15dp" android:layout_weight="1" android:layout_marginStart="1dp" android:background="#E65100"/>
+                            </LinearLayout>
+                            <TextView android:id="@+id/tvLaporanMonth8" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:gravity="center" android:text="Ags" android:textColor="@color/text_secondary" android:textSize="9sp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_marginHorizontal="1dp"
+                            android:orientation="vertical"
+                            android:baselineAligned="false">
+                            <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/>
+                            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="bottom" android:weightSum="2">
+                                <View android:id="@+id/barPanen9" android:layout_width="0dp" android:layout_height="20dp" android:layout_weight="1" android:layout_marginEnd="1dp" android:background="@color/primary_dark_green"/>
+                                <View android:id="@+id/barBiaya9" android:layout_width="0dp" android:layout_height="15dp" android:layout_weight="1" android:layout_marginStart="1dp" android:background="#E65100"/>
+                            </LinearLayout>
+                            <TextView android:id="@+id/tvLaporanMonth9" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:gravity="center" android:text="Sep" android:textColor="@color/text_secondary" android:textSize="9sp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_marginHorizontal="1dp"
+                            android:orientation="vertical"
+                            android:baselineAligned="false">
+                            <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/>
+                            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="bottom" android:weightSum="2">
+                                <View android:id="@+id/barPanen10" android:layout_width="0dp" android:layout_height="20dp" android:layout_weight="1" android:layout_marginEnd="1dp" android:background="@color/primary_dark_green"/>
+                                <View android:id="@+id/barBiaya10" android:layout_width="0dp" android:layout_height="15dp" android:layout_weight="1" android:layout_marginStart="1dp" android:background="#E65100"/>
+                            </LinearLayout>
+                            <TextView android:id="@+id/tvLaporanMonth10" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:gravity="center" android:text="Okt" android:textColor="@color/text_secondary" android:textSize="9sp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_marginHorizontal="1dp"
+                            android:orientation="vertical"
+                            android:baselineAligned="false">
+                            <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/>
+                            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="bottom" android:weightSum="2">
+                                <View android:id="@+id/barPanen11" android:layout_width="0dp" android:layout_height="20dp" android:layout_weight="1" android:layout_marginEnd="1dp" android:background="@color/primary_dark_green"/>
+                                <View android:id="@+id/barBiaya11" android:layout_width="0dp" android:layout_height="15dp" android:layout_weight="1" android:layout_marginStart="1dp" android:background="#E65100"/>
+                            </LinearLayout>
+                            <TextView android:id="@+id/tvLaporanMonth11" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:gravity="center" android:text="Nov" android:textColor="@color/text_secondary" android:textSize="9sp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_marginHorizontal="1dp"
+                            android:orientation="vertical"
+                            android:baselineAligned="false">
+                            <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/>
+                            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="bottom" android:weightSum="2">
+                                <View android:id="@+id/barPanen12" android:layout_width="0dp" android:layout_height="20dp" android:layout_weight="1" android:layout_marginEnd="1dp" android:background="@color/primary_dark_green"/>
+                                <View android:id="@+id/barBiaya12" android:layout_width="0dp" android:layout_height="15dp" android:layout_weight="1" android:layout_marginStart="1dp" android:background="#E65100"/>
+                            </LinearLayout>
+                            <TextView android:id="@+id/tvLaporanMonth12" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:gravity="center" android:text="Des" android:textColor="@color/text_secondary" android:textSize="9sp"/>
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

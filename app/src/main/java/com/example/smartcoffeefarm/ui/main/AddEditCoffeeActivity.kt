@@ -43,6 +43,16 @@ class AddEditCoffeeActivity : AppCompatActivity() {
         }
     }
 
+    private val galleryLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        if (uri != null) {
+            val localUri = copyUriToFile(uri)
+            if (localUri != null) {
+                currentImageUri = localUri.toString()
+                binding.ivPlantPhoto.setImageURI(localUri)
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddEditCoffeeBinding.inflate(layoutInflater)
@@ -83,6 +93,10 @@ class AddEditCoffeeActivity : AppCompatActivity() {
             } catch (_: ActivityNotFoundException) {
                 Toast.makeText(this, "Kamera tidak tersedia", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        binding.btnPickGallery.setOnClickListener {
+            galleryLauncher.launch("image/*")
         }
 
         binding.btnSave.setOnClickListener {
@@ -210,6 +224,22 @@ class AddEditCoffeeActivity : AppCompatActivity() {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 90, fos)
             fos.flush()
             fos.close()
+            Uri.fromFile(file)
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    private fun copyUriToFile(uri: Uri): Uri? {
+        return try {
+            val inputStream = contentResolver.openInputStream(uri)
+            val file = File(filesDir, "coffee_${UUID.randomUUID()}.jpg")
+            val outputStream = FileOutputStream(file)
+            inputStream?.use { input ->
+                outputStream.use { output ->
+                    input.copyTo(output)
+                }
+            }
             Uri.fromFile(file)
         } catch (_: Exception) {
             null

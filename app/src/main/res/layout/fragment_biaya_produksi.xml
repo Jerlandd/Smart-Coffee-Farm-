@@ -47,6 +47,7 @@
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tvTotalCost"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
@@ -58,6 +59,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cardPerKg"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -75,11 +77,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Per Kg"
+                            android:text="HPP / Kg"
                             android:textColor="@color/text_secondary"
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tvCostPerKg"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
@@ -114,59 +117,41 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
-                    <!-- Pupuk Bar -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:text="Pupuk"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="13sp" />
-
-                    <ProgressBar
-                        style="?android:attr/progressBarStyleHorizontal"
+                    <LinearLayout
+                        android:id="@+id/containerPerKategori"
                         android:layout_width="match_parent"
-                        android:layout_height="8dp"
-                        android:layout_marginTop="4dp"
-                        android:progress="70"
-                        android:progressTint="@color/badge_orange_text" />
-
-                    <!-- Tenaga Kerja Bar -->
-                    <TextView
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="Tenaga Kerja"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="13sp" />
-
-                    <ProgressBar
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="8dp"
-                        android:layout_marginTop="4dp"
-                        android:progress="50"
-                        android:progressTint="@color/badge_orange_text" />
-
-                    <!-- Pestisida Bar -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="Pestisida"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="13sp" />
-
-                    <ProgressBar
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="8dp"
-                        android:layout_marginTop="4dp"
-                        android:progress="25"
-                        android:progressTint="@color/badge_orange_text" />
+                        android:orientation="vertical" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
+            <!-- Riwayat Section Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Riwayat Biaya"
+                    android:textColor="@color/text_primary"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnResetRiwayatBiaya"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reset Riwayat"
+                    android:textColor="#D32F2F"
+                    android:textSize="12sp" />
+            </LinearLayout>
 
             <!-- List Items Card -->
             <androidx.cardview.widget.CardView
@@ -179,60 +164,11 @@
                 app:cardElevation="2dp">
 
                 <LinearLayout
+                    android:id="@+id/containerRiwayatBiaya"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="16dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Pupuk · Blok C"
-                            android:textColor="@color/text_primary"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Rp 2,4 jt"
-                            android:textColor="@color/text_primary"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginVertical="10dp"
-                        android:background="#E0E0E0" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Tenaga Kerja"
-                            android:textColor="@color/text_primary"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Rp 3,1 jt"
-                            android:textColor="@color/text_primary"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

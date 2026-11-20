@@ -25,4 +25,12 @@ class CoffeeRepository(private val coffeeDao: CoffeeDao) {
     suspend fun insertHarvestRecord(record: HarvestRecord) = coffeeDao.insertHarvestRecord(record)
 
     suspend fun clearHarvestRecordsForUser(userId: Long) = coffeeDao.clearHarvestRecordsForUser(userId)
+
+    fun getAllCostRecordsForUser(userId: Long): Flow<List<CostRecord>> = coffeeDao.getAllCostRecordsForUser(userId)
+
+    suspend fun insertCostRecord(record: CostRecord) = coffeeDao.insertCostRecord(record)
+
+    suspend fun deleteCostRecord(record: CostRecord) = coffeeDao.deleteCostRecord(record)
+
+    suspend fun clearCostRecordsForUser(userId: Long) = coffeeDao.clearCostRecordsForUser(userId)
 }

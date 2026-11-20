@@ -43,4 +43,16 @@ interface CoffeeDao {
 
     @Query("DELETE FROM harvest_records WHERE userId = :userId")
     suspend fun clearHarvestRecordsForUser(userId: Long)
+
+    @Query("SELECT * FROM cost_records WHERE userId = :userId ORDER BY id DESC")
+    fun getAllCostRecordsForUser(userId: Long): Flow<List<CostRecord>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertCostRecord(record: CostRecord)
+
+    @Delete
+    suspend fun deleteCostRecord(record: CostRecord)
+
+    @Query("DELETE FROM cost_records WHERE userId = :userId")
+    suspend fun clearCostRecordsForUser(userId: Long)
 }

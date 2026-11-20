@@ -67,11 +67,24 @@
                     style="@style/Widget.Material3.Button.OutlinedButton"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="8dp"
                     android:text="Ambil Foto Tanaman (Kamera)"
                     android:textAllCaps="false"
                     android:textColor="@color/primary_dark_green"
                     app:icon="@android:drawable/ic_menu_camera"
+                    app:iconTint="@color/primary_dark_green"
+                    app:strokeColor="@color/primary_dark_green" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnPickGallery"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="Pilih dari Galeri (File Gambar)"
+                    android:textAllCaps="false"
+                    android:textColor="@color/primary_dark_green"
+                    app:icon="@android:drawable/ic_menu_gallery"
                     app:iconTint="@color/primary_dark_green"
                     app:strokeColor="@color/primary_dark_green" />
 

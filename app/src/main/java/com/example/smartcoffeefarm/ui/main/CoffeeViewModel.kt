@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.smartcoffeefarm.data.CoffeeDatabase
 import com.example.smartcoffeefarm.data.CoffeePlot
 import com.example.smartcoffeefarm.data.CoffeeRepository
+import com.example.smartcoffeefarm.data.CostRecord
 import com.example.smartcoffeefarm.data.HarvestRecord
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,6 +28,7 @@ class CoffeeViewModel(application: Application) : AndroidViewModel(application) 
 
     val coffeePlots: LiveData<List<CoffeePlot>>
     val harvestRecords: LiveData<List<HarvestRecord>>
+    val costRecords: LiveData<List<CostRecord>>
 
     init {
         val dao = CoffeeDatabase.getDatabase(application).coffeeDao()
@@ -44,6 +46,10 @@ class CoffeeViewModel(application: Application) : AndroidViewModel(application) 
 
         harvestRecords = _userIdFlow.flatMapLatest { userId ->
             repository.getAllHarvestRecordsForUser(userId)
+        }.asLiveData()
+
+        costRecords = _userIdFlow.flatMapLatest { userId ->
+            repository.getAllCostRecordsForUser(userId)
         }.asLiveData()
     }
 
@@ -83,6 +89,24 @@ class CoffeeViewModel(application: Application) : AndroidViewModel(application) 
     fun clearHarvestRecords() {
         viewModelScope.launch {
             repository.clearHarvestRecordsForUser(currentUserId)
+        }
+    }
+
+    fun insertCostRecord(record: CostRecord) {
+        viewModelScope.launch {
+            repository.insertCostRecord(record.copy(userId = currentUserId))
+        }
+    }
+
+    fun deleteCostRecord(record: CostRecord) {
+        viewModelScope.launch {
+            repository.deleteCostRecord(record)
+        }
+    }
+
+    fun clearCostRecords() {
+        viewModelScope.launch {
+            repository.clearCostRecordsForUser(currentUserId)
         }
     }
 }
